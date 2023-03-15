@@ -59,9 +59,12 @@
 	
     <button onclick="delay()">Delay</button>
 
+    <button onclick="Promote()">Promote</button>
+
 </body>
 <script>
-	
+	 let queueItems=[];
+    let removedItem;
     function makeNewDiv(){
 		/* make the div and its text */
 	
@@ -80,33 +83,51 @@
 		
         container.appendChild(element)
 	}
-	
+	queueItems=document.getElementsByClassName('delayQ');
+            console.log(document.getElementsByClassName('delayQ'));
 	
     function get() {
 	
-        let queueItems = document.getElementsByClassName('delayQ')
+         queueItems = document.getElementsByClassName('delayQ')
 
-	
-        if (queueItems.length > 0) {
-	
-            queueItems[0].remove()
-		}
-	
+         let len=queueItems.length;
+        if(len>0){
+           // removedItem=queueItems[0];
+            //console.log(removedItem.innerHTML);
+            queueItems[0].remove();
+        }
+        
+
     }
+    function delay(){
+        queueItems=document.getElementsByClassName('delayQ');
+        let len=queueItems.length;
+        console.log(queueItems);
+        if(len==0 || len==1){
 
-	function delay() {
-	
-    
-        let queueItems = document.getElementsByClassName('delayQ')
-		if (queueItems.length > 1) {
-	
-            let removedItem = queueItems[0]
-		
-            queueItems[0].remove()
-		
+        }
+        else if(len>=2){
+            console.log("length is: "+len);
+            removedItem=queueItems[0];
+            console.log(removedItem);
+            console.log(removedItem.innerHTML);
+            queueItems[0].remove();
             let container = document.getElementById('target')
-			container.appendChild(removedItem)
-		}
-	}
+	        container.append(removedItem,container.firstChild)
+        }
+        
+    }
+    function Promote(){
+        let len=queueItems.length;
+        
+        let mal=Math.floor(Math.random()*len);
+        console.log(mal);
+        removedItem=queueItems[mal];
+            console.log(removedItem);
+            console.log(removedItem.innerHTML);
+            queueItems[mal].remove();
+            let container = document.getElementById('target')
+	        container.insertBefore(removedItem,container.firstChild)
+    }
 </script>
-</html>
+</html>	
